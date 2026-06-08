@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>فيورن للتصميم الداخلي · تبوك</title>
+<meta name="description" content="فيورن للتصميم الداخلي في تبوك — تصميم وتنفيذ مساحات سكنية وتجارية وخارجية بلمسة راقية ودقّة في التفاصيل. تعامل راقٍ وأسعار مدروسة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@200;300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5efe6; --bg2:#ede3d5; --paper:#fffdf9;
+  --ink:#2a2520; --ink2:#5d534a; --ink3:#8a7e71;
+  --terra:#b06a41; --terra-d:#8d5230; --sand:#c6a578; --sand-d:#a98955;
+  --char:#211d18; --char2:#2c2720;
+  --line:rgba(42,37,32,.13); --line2:rgba(42,37,32,.07);
+  --fa-d:'El Messiri',serif; --fa:'Tajawal',sans-serif;
+  --fd:'Fraunces',serif; --fu:'Jost',sans-serif;
+  --ease:cubic-bezier(.32,.72,0,1);
+  --maxw:1240px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--fa);line-height:1.85;overflow-x:hidden;font-weight:300;-webkit-font-smoothing:antialiased}
+::selection{background:var(--terra);color:#fff}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--fa-d);font-weight:600;line-height:1.2;letter-spacing:-.01em}
+.lat{font-family:var(--fd)}
+.ui{font-family:var(--fu)}
+.num{font-family:var(--fd);direction:ltr;unicode-bidi:isolate}
+
+/* film grain */
+.grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.04;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* preloader */
+#pre{position:fixed;inset:0;z-index:10000;background:var(--char);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .9s var(--ease),visibility .9s}
+#pre.done{opacity:0;visibility:hidden}
+#pre .pl-mark{font-family:var(--fd);font-size:clamp(34px,7vw,58px);color:var(--bg);letter-spacing:.16em;font-weight:300;opacity:0;transform:translateY(12px);animation:plin 1s var(--ease) .15s forwards}
+#pre .pl-sub{font-family:var(--fu);font-size:11px;letter-spacing:.5em;color:var(--sand);text-transform:uppercase;opacity:0;animation:plin 1s var(--ease) .45s forwards}
+#pre .pl-bar{width:120px;height:1px;background:rgba(255,255,255,.18);overflow:hidden}
+#pre .pl-bar i{display:block;height:100%;width:40%;background:var(--sand);animation:plbar 1.3s var(--ease) infinite}
+@keyframes plin{to{opacity:1;transform:none}}
+@keyframes plbar{0%{transform:translateX(-120%)}100%{transform:translateX(360%)}}
+
+/* scroll progress */
+#prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:8000;background:transparent}
+#prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--terra),var(--sand))}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:7000;display:flex;justify-content:center;padding:18px 16px;transition:padding .5s var(--ease)}
+.nav.shrink{padding:10px 16px}
+.nav-in{width:100%;max-width:var(--maxw);display:flex;align-items:center;justify-content:space-between;gap:18px;
+  background:rgba(255,253,249,.72);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid var(--line);border-radius:100px;padding:11px 14px 11px 22px;box-shadow:0 18px 50px -28px rgba(42,37,32,.4)}
+.brand{display:flex;align-items:center;gap:11px}
+.brand .bk{width:34px;height:34px;border-radius:50%;background:var(--char);display:grid;place-items:center;flex:none}
+.brand .bk span{font-family:var(--fd);color:var(--sand);font-size:17px;line-height:1}
+.brand b{font-family:var(--fa-d);font-weight:600;font-size:18px;letter-spacing:.01em}
+.brand small{display:block;font-family:var(--fu);font-size:8.5px;letter-spacing:.34em;color:var(--ink3);text-transform:uppercase;margin-top:-2px}
+.nav-links{display:flex;align-items:center;gap:5px}
+.nav-links a{font-size:14.5px;color:var(--ink2);padding:8px 15px;border-radius:100px;transition:.4s var(--ease);position:relative}
+.nav-links a:hover{color:var(--ink);background:rgba(42,37,32,.05)}
+.nav-cta{display:inline-flex;align-items:center;gap:9px;background:var(--char);color:var(--bg)!important;padding:10px 10px 10px 20px!important;border-radius:100px;font-size:14px;transition:.45s var(--ease)}
+.nav-cta:hover{background:var(--terra-d);transform:translateY(-1px)}
+.nav-cta .ic{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:12px;transition:.45s var(--ease)}
+.nav-cta:hover .ic{transform:translateX(-3px) translateY(-1px)}
+.burger{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--paper);cursor:pointer;position:relative;flex:none}
+.burger span{position:absolute;left:13px;width:18px;height:1.6px;background:var(--ink);border-radius:2px;transition:.45s var(--ease)}
+.burger span:nth-child(1){top:18px}.burger span:nth-child(2){top:24px}
+.burger.x span:nth-child(1){top:21px;transform:rotate(45deg)}
+.burger.x span:nth-child(2){top:21px;transform:rotate(-45deg)}
+
+/* mobile overlay */
+.mob{position:fixed;inset:0;z-index:6900;background:rgba(33,29,24,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;opacity:0;visibility:hidden;transition:.6s var(--ease)}
+.mob.open{opacity:1;visibility:visible}
+.mob a{font-family:var(--fa-d);font-size:30px;color:var(--bg);padding:9px;opacity:0;transform:translateY(26px);transition:.7s var(--ease)}
+.mob.open a{opacity:1;transform:none}
+.mob.open a:nth-child(1){transition-delay:.1s}.mob.open a:nth-child(2){transition-delay:.16s}
+.mob.open a:nth-child(3){transition-delay:.22s}.mob.open a:nth-child(4){transition-delay:.28s}
+.mob.open a:nth-child(5){transition-delay:.34s}.mob.open a:nth-child(6){transition-delay:.4s}
+.mob .ml{font-family:var(--fu);font-size:12px;letter-spacing:.4em;color:var(--sand);text-transform:uppercase;margin-bottom:8px}
+.mob .mcta{margin-top:14px;background:var(--terra);color:#fff;font-family:var(--fa);font-size:18px;padding:13px 34px;border-radius:100px}
+
+/* layout */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+section{position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--fu);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--terra-d);font-weight:400}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--terra)}
+.eyebrow.c::after{content:"";width:24px;height:1px;background:var(--terra)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(46px);filter:blur(8px);transition:opacity 1s var(--ease),transform 1s var(--ease),filter 1s var(--ease)}
+.rv.in{opacity:1;transform:none;filter:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
+
+/* HERO */
+.hero{min-height:100dvh;display:flex;align-items:flex-end;position:relative;overflow:hidden;padding-bottom:6vh}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-bg img{width:100%;height:118%;object-fit:cover;will-change:transform}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(33,29,24,.5) 0%,rgba(33,29,24,.12) 32%,rgba(33,29,24,.42) 72%,rgba(33,29,24,.84) 100%)}
+.hero-in{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px;color:#fff}
+.hero .eyebrow{color:var(--sand)}
+.hero .eyebrow::before{background:var(--sand)}
+.hero h1{font-size:clamp(44px,8.4vw,108px);font-weight:600;line-height:1.02;margin:20px 0 0;letter-spacing:-.02em}
+.hero h1 em{font-family:var(--fd);font-style:italic;font-weight:300;color:var(--sand)}
+.hero-lead{max-width:540px;font-size:clamp(15px,2vw,18.5px);color:rgba(255,255,255,.84);margin-top:24px;font-weight:300}
+.hero-act{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:11px;border-radius:100px;font-size:15.5px;padding:14px 14px 14px 26px;transition:.5s var(--ease);font-family:var(--fa);cursor:pointer;border:none}
+.btn .ic{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:13px;transition:.5s var(--ease)}
+.btn-p{background:var(--bg);color:var(--char)}
+.btn-p .ic{background:var(--terra);color:#fff}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 22px 44px -20px rgba(0,0,0,.5)}
+.btn-p:hover .ic{transform:translateX(-3px) translateY(-1px)}
+.btn-g{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(8px)}
+.btn-g .ic{background:rgba(255,255,255,.16)}
+.btn-g:hover{background:rgba(255,255,255,.18)}
+.hero-meta{position:absolute;left:24px;bottom:6vh;z-index:2;display:flex;flex-direction:column;gap:4px;text-align:left;color:rgba(255,255,255,.78)}
+.hero-meta .num{font-size:24px;color:#fff}
+.hero-meta small{font-family:var(--fu);font-size:10px;letter-spacing:.26em;text-transform:uppercase}
+.hero-meta .stars{color:var(--sand);letter-spacing:.12em;font-size:15px}
+
+/* marquee */
+.marq{background:var(--char);color:var(--bg);padding:18px 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.06)}
+.marq-t{display:flex;gap:46px;white-space:nowrap;width:max-content;animation:marq 32s linear infinite}
+.marq-t span{font-family:var(--fa-d);font-size:19px;color:rgba(245,239,230,.55);display:inline-flex;align-items:center;gap:46px}
+.marq-t span::after{content:"✦";color:var(--terra);font-size:13px}
+@keyframes marq{to{transform:translateX(50%)}}
+
+/* intro */
+.intro{padding:clamp(80px,12vw,150px) 0}
+.intro-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(40px,7vw,100px);align-items:center}
+.intro h2{font-size:clamp(28px,4.4vw,52px);font-weight:600;margin:22px 0 0;line-height:1.18}
+.intro h2 em{font-family:var(--fd);font-style:italic;font-weight:300;color:var(--terra-d)}
+.intro p{color:var(--ink2);font-size:16.5px;margin-top:22px;max-width:46ch}
+.intro-side{position:relative}
+.intro-card{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:8px;box-shadow:0 40px 80px -50px rgba(42,37,32,.5)}
+.intro-card img{width:100%;height:380px;object-fit:cover;border-radius:20px}
+.intro-badge{position:absolute;bottom:-26px;right:-14px;background:var(--char);color:var(--bg);border-radius:20px;padding:18px 24px;text-align:center;box-shadow:0 26px 50px -26px rgba(0,0,0,.6)}
+.intro-badge .num{font-size:38px;color:var(--sand);line-height:1}
+.intro-badge small{font-family:var(--fu);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7);display:block;margin-top:6px}
+
+/* section head */
+.shead{text-align:center;max-width:680px;margin:0 auto clamp(48px,7vw,80px)}
+.shead h2{font-size:clamp(30px,5vw,58px);font-weight:600;margin-top:18px;line-height:1.12}
+.shead h2 em{font-family:var(--fd);font-style:italic;font-weight:300;color:var(--terra-d)}
+.shead p{color:var(--ink2);margin-top:18px;font-size:16.5px}
+
+/* services */
+.services{padding:clamp(80px,12vw,140px) 0;background:var(--bg2);border-top:1px solid var(--line2)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.svc{grid-column:span 1;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:38px 32px;transition:.55s var(--ease);position:relative;overflow:hidden}
+.svc.wide{grid-column:span 3;display:grid;grid-template-columns:1.3fr 1fr;gap:0;padding:0;align-items:stretch}
+.svc:hover{transform:translateY(-6px);border-color:var(--terra);box-shadow:0 40px 70px -44px rgba(42,37,32,.5)}
+.svc .sn{font-family:var(--fd);font-size:14px;color:var(--terra);letter-spacing:.1em}
+.svc h3{font-size:24px;margin:18px 0 12px;font-weight:600}
+.svc p{color:var(--ink2);font-size:15px}
+.svc ul{list-style:none;margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.svc ul li{font-family:var(--fu);font-size:11px;letter-spacing:.04em;color:var(--ink2);background:var(--bg2);border:1px solid var(--line);padding:6px 13px;border-radius:100px}
+.svc-wtxt{padding:42px 38px;display:flex;flex-direction:column;justify-content:center}
+.svc-wimg{position:relative;min-height:260px;overflow:hidden}
+.svc-wimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* process */
+.process{padding:clamp(80px,12vw,140px) 0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+.step{padding:38px 26px 38px 0;border-bottom:1px solid var(--line);position:relative}
+.step .sn{font-family:var(--fd);font-size:13px;color:var(--terra);letter-spacing:.18em}
+.step h3{font-size:21px;margin:16px 0 10px;font-weight:600}
+.step p{color:var(--ink2);font-size:14.5px}
+.step::before{content:"";position:absolute;top:-1px;right:0;width:46px;height:2px;background:var(--terra)}
+
+/* portfolio */
+.portfolio{padding:clamp(80px,12vw,140px) 0;background:var(--char);color:var(--bg)}
+.portfolio .shead h2{color:var(--bg)}
+.portfolio .shead p{color:rgba(245,239,230,.66)}
+.portfolio .eyebrow{color:var(--sand)}
+.portfolio .eyebrow::before,.portfolio .eyebrow.c::after{background:var(--sand)}
+.pf-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.pf{position:relative;border-radius:22px;overflow:hidden;cursor:pointer;background:var(--char2)}
+.pf img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.pf:hover img{transform:scale(1.06)}
+.pf::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(20,17,13,.82) 100%)}
+.pf-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:26px 28px}
+.pf-cap small{font-family:var(--fu);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--sand)}
+.pf-cap h3{font-size:23px;color:#fff;margin-top:7px;font-weight:600}
+.pf-a{grid-column:span 7;min-height:440px}
+.pf-b{grid-column:span 5;min-height:440px}
+.pf-c{grid-column:span 12;min-height:380px}
+
+/* testimonials */
+.testi{padding:clamp(80px,12vw,140px) 0;background:var(--bg2);border-top:1px solid var(--line2)}
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:980px;margin:0 auto}
+.tcard{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:36px 34px;position:relative}
+.tcard .q{font-family:var(--fd);font-size:54px;color:var(--sand);line-height:.6;height:24px}
+.tcard p{font-family:var(--fa-d);font-size:20px;font-weight:500;color:var(--ink);margin:14px 0 18px;line-height:1.6}
+.tcard .stars{color:var(--sand);letter-spacing:.1em;font-size:14px}
+.tcard .who{font-family:var(--fu);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin-top:10px}
+
+/* CTA / contact */
+.contact{padding:clamp(80px,12vw,150px) 0}
+.ct-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(34px,5vw,64px);align-items:center}
+.contact h2{font-size:clamp(32px,5.4vw,62px);font-weight:600;line-height:1.1}
+.contact h2 em{font-family:var(--fd);font-style:italic;font-weight:300;color:var(--terra-d)}
+.contact .lead{color:var(--ink2);font-size:17px;margin:22px 0 30px;max-width:42ch}
+.ct-act{display:flex;flex-wrap:wrap;gap:14px}
+.btn-d{background:var(--char);color:var(--bg)}
+.btn-d .ic{background:var(--terra);color:#fff}
+.btn-d:hover{transform:translateY(-2px);background:var(--terra-d)}
+.btn-o{background:transparent;color:var(--char);border:1px solid var(--line)}
+.btn-o .ic{background:var(--bg2)}
+.btn-o:hover{border-color:var(--char)}
+.info-card{background:var(--paper);border:1px solid var(--line);border-radius:28px;padding:12px;box-shadow:0 40px 80px -54px rgba(42,37,32,.5)}
+.info-inner{border:1px solid var(--line2);border-radius:20px;overflow:hidden}
+.irow{display:flex;align-items:center;gap:16px;padding:22px 24px;border-bottom:1px solid var(--line2);transition:.4s var(--ease)}
+.irow:last-child{border-bottom:none}
+.irow:hover{background:var(--bg)}
+.irow .ico{width:44px;height:44px;border-radius:50%;background:var(--bg2);display:grid;place-items:center;flex:none;color:var(--terra-d)}
+.irow .ico svg{width:19px;height:19px}
+.irow small{font-family:var(--fu);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink3);display:block}
+.irow b{font-weight:500;font-size:16.5px;color:var(--ink)}
+.irow .num{font-size:17px}
+
+/* footer */
+.foot{background:var(--char);color:var(--bg);padding:70px 0 36px}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:46px;border-bottom:1px solid rgba(255,255,255,.1)}
+.foot .brand b{color:var(--bg)}
+.foot-top p{color:rgba(245,239,230,.6);font-size:14.5px;margin-top:18px;max-width:34ch}
+.fcol h4{font-family:var(--fu);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--sand);margin-bottom:16px;font-weight:500}
+.fcol a{display:block;color:rgba(245,239,230,.72);font-size:15px;padding:5px 0;transition:.3s}
+.fcol a:hover{color:var(--bg)}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:28px;flex-wrap:wrap}
+.foot-bot small{font-family:var(--fu);font-size:12px;letter-spacing:.06em;color:rgba(245,239,230,.5)}
+
+/* WhatsApp float */
+.wa{position:fixed;bottom:22px;left:22px;z-index:6000;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 16px 40px -12px rgba(37,211,102,.6);transition:.45s var(--ease);animation:wap 3s ease-in-out infinite}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:30px;height:30px;fill:#fff}
+@keyframes wap{0%,100%{box-shadow:0 16px 40px -12px rgba(37,211,102,.6)}50%{box-shadow:0 16px 54px -8px rgba(37,211,102,.85)}}
+
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:9500;background:rgba(20,17,13,.94);display:none;align-items:center;justify-content:center;padding:30px;cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:94vw;max-height:88vh;border-radius:14px;box-shadow:0 30px 80px -20px rgba(0,0,0,.7)}
+#lb .lbx{position:absolute;top:24px;left:24px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-size:20px;cursor:pointer}
+
+@media(max-width:920px){
+  .nav-links{display:none}
+  .burger{display:block}
+  .intro-grid{grid-template-columns:1fr;gap:50px}
+  .intro-side{order:-1}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .svc.wide{grid-template-columns:1fr;grid-column:span 2}
+  .svc.wide .svc-wimg{min-height:230px}
+  .steps{grid-template-columns:1fr 1fr}
+  .step{padding-right:0;padding-left:14px}
+  .ct-grid{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .wrap{padding:0 18px}
+  .hero-in{padding:0 18px}
+  .hero-meta{left:18px}
+  .svc-grid{grid-template-columns:1fr}
+  .svc.wide{grid-column:span 1}
+  .steps{grid-template-columns:1fr}
+  .pf-a,.pf-b,.pf-c{grid-column:span 12;min-height:300px}
+  .tg{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr}
+  .hero-act{flex-direction:column;align-items:stretch}
+  .hero-act .btn{justify-content:space-between}
+  .intro-badge{right:auto;left:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div id="pre">
+  <div class="pl-mark lat">FIORN</div>
+  <div class="pl-sub">Interior Design · Tabuk</div>
+  <div class="pl-bar"><i></i></div>
+</div>
+<div id="prog"><i></i></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#top" class="brand">
+      <span class="bk"><span class="lat">F</span></span>
+      <span><b>فيورن</b><small>Fiorn Interior</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#about">المكتب</a>
+      <a href="#services">خدماتنا</a>
+      <a href="#process">منهجيتنا</a>
+      <a href="#work">أعمالنا</a>
+      <a href="#contact" class="nav-cta">تواصل معنا <span class="ic">↗</span></a>
+    </nav>
+    <button class="burger" id="burger" aria-label="القائمة"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- MOBILE -->
+<div class="mob" id="mob">
+  <div class="ml lat">Menu</div>
+  <a href="#about">المكتب</a>
+  <a href="#services">خدماتنا</a>
+  <a href="#process">منهجيتنا</a>
+  <a href="#work">أعمالنا</a>
+  <a href="#contact">تواصل</a>
+  <a href="https://wa.me/966558444044?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1%D8%A9%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85" class="mcta">احجز استشارتك</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"><img src="img/hero.jpg" id="heroImg" alt="تصميم داخلي راقٍ من فيورن"></div>
+  <div class="hero-in">
+    <span class="eyebrow">مكتب تصميم داخلي · تبوك</span>
+    <h1>نُصمّم المساحات<br>لتُروى فيها <em>الحكاية</em></h1>
+    <p class="hero-lead">في فيورن نُحوّل الفراغ إلى تجربة متكاملة — من الفكرة الأولى إلى آخر تفصيلة. تصميمٌ يوازن بين الجمال والوظيفة، وتنفيذٌ يحترم التفاصيل.</p>
+    <div class="hero-act">
+      <a href="#contact" class="btn btn-p">احجز استشارتك <span class="ic">↗</span></a>
+      <a href="#work" class="btn btn-g">شاهد أعمالنا <span class="ic">↓</span></a>
+    </div>
+  </div>
+  <div class="hero-meta">
+    <span class="stars">★★★★★</span>
+    <span class="num">5.0</span>
+    <small>تقييم عملائنا على خرائط Google</small>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marq" aria-hidden="true">
+  <div class="marq-t">
+    <span>تصميم داخلي سكني</span><span>تصميم تجاري</span><span>إشراف وتنفيذ</span><span>تشطيبات راقية</span><span>مساحات خارجية</span>
+    <span>تصميم داخلي سكني</span><span>تصميم تجاري</span><span>إشراف وتنفيذ</span><span>تشطيبات راقية</span><span>مساحات خارجية</span>
+  </div>
+</div>
+
+<!-- INTRO / ABOUT -->
+<section class="intro" id="about">
+  <div class="wrap intro-grid">
+    <div>
+      <span class="eyebrow rv">عن المكتب</span>
+      <h2 class="rv d1">رؤيةٌ في التصميم،<br><em>ودقّةٌ في التنفيذ</em></h2>
+      <p class="rv d2">فيورن مكتب تصميم داخلي في تبوك، يجمع بين الحسّ الجمالي والفهم العملي للمساحة. نبدأ بالإصغاء لاحتياجك وأسلوب حياتك، ثم نترجمه إلى تصميمٍ متناغم في الألوان والإضاءة والخامات.</p>
+      <p class="rv d3">نرافق المشروع من الفكرة حتى التسليم، بتعاملٍ راقٍ وأسعارٍ مدروسة — وهذا ما يقوله عملاؤنا عنّا.</p>
+    </div>
+    <div class="intro-side rv d2">
+      <div class="intro-card">
+        <img src="img/render.jpg" alt="تصميم واجهة تجارية من فيورن">
+      </div>
+      <div class="intro-badge">
+        <span class="num">100%</span>
+        <small>رضا العملاء</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow c rv">ما نقدّمه</span>
+      <h2 class="rv d1">خدمات تُغطّي <em>رحلة المكان</em> كاملة</h2>
+      <p class="rv d2">من التصور الأول للفكرة، مرورًا بالتصميم ثلاثي الأبعاد، وصولًا إلى التنفيذ والإشراف على أرض الواقع.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc rv d1">
+        <span class="sn lat">01</span>
+        <h3>التصميم الداخلي السكني</h3>
+        <p>مجالس، غرف نوم، صالات ومطابخ بتصميمٍ يعكس ذوقك ويُراعي راحتك اليومية وتوزيع الإضاءة والخامات.</p>
+        <ul><li>Living</li><li>Bedroom</li><li>Majlis</li></ul>
+      </div>
+      <div class="svc rv d2">
+        <span class="sn lat">02</span>
+        <h3>التصميم التجاري</h3>
+        <p>مقاهٍ ومحلات وواجهات بهوية بصرية مميزة تجذب الزائر وتعكس علامتك التجارية بأبهى صورة.</p>
+        <ul><li>Cafés</li><li>Retail</li><li>Branding</li></ul>
+      </div>
+      <div class="svc rv d3">
+        <span class="sn lat">03</span>
+        <h3>المساحات الخارجية</h3>
+        <p>تراسات، جلسات خارجية وحدائق مُنسّقة بإضاءةٍ هادئة وعناصر طبيعية تصنع أجواءً استثنائية.</p>
+        <ul><li>Terrace</li><li>Landscape</li><li>Lighting</li></ul>
+      </div>
+      <div class="svc wide rv d2">
+        <div class="svc-wtxt">
+          <span class="sn lat">04</span>
+          <h3>التنفيذ والإشراف</h3>
+          <p>لا يتوقف دورنا عند الرسم. نُشرف على التنفيذ ونتابع الخامات والتشطيبات لنضمن أن يخرج المكان مطابقًا للتصميم تمامًا — بجودةٍ نفخر بها.</p>
+          <ul style="margin-top:20px"><li>إدارة المشروع</li><li>اختيار الخامات</li><li>متابعة التشطيب</li><li>التسليم</li></ul>
+        </div>
+        <div class="svc-wimg"><img src="img/terrace.jpg" alt="تنفيذ تراس خارجي"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow c rv">كيف نعمل</span>
+      <h2 class="rv d1">منهجيةٌ <em>واضحة</em> من الفكرة للتسليم</h2>
+    </div>
+    <div class="steps">
+      <div class="step rv d1"><span class="sn lat">STEP 01</span><h3>الاستشارة</h3><p>نلتقي، نُصغي لاحتياجك ومساحتك، ونحدّد الميزانية والأسلوب المناسب.</p></div>
+      <div class="step rv d2"><span class="sn lat">STEP 02</span><h3>التصميم</h3><p>مخططات ومناظير ثلاثية الأبعاد تُريك مكانك قبل التنفيذ بأدقّ التفاصيل.</p></div>
+      <div class="step rv d3"><span class="sn lat">STEP 03</span><h3>التنفيذ</h3><p>إشرافٌ ميداني على الخامات والتشطيبات لضمان مطابقة كل تفصيلة للتصميم.</p></div>
+      <div class="step rv d4"><span class="sn lat">STEP 04</span><h3>التسليم</h3><p>نُسلّمك المكان جاهزًا كما تخيّلته — أو أجمل.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="work">
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow c rv">مختاراتٌ من أعمالنا</span>
+      <h2 class="rv d1">تصاميمٌ <em>تُترجَم</em> إلى واقع</h2>
+      <p class="rv d2">نماذج من مشاريع التصميم والتنفيذ — سكنية وتجارية وخارجية.</p>
+    </div>
+    <div class="pf-grid">
+      <div class="pf pf-a rv d1" data-img="img/hero.jpg">
+        <img src="img/hero.jpg" alt="تصميم غرفة نوم رئيسية">
+        <div class="pf-cap"><small>Residential</small><h3>غرفة نوم رئيسية — تصميم داخلي</h3></div>
+      </div>
+      <div class="pf pf-b rv d2" data-img="img/render.jpg">
+        <img src="img/render.jpg" alt="تصميم واجهة مقهى Veloce">
+        <div class="pf-cap"><small>Commercial</small><h3>تصميم مقهى — واجهة وجلسات</h3></div>
+      </div>
+      <div class="pf pf-c rv d3" data-img="img/terrace.jpg">
+        <img src="img/terrace.jpg" alt="تنفيذ تراس خارجي Skyline">
+        <div class="pf-cap"><small>Outdoor</small><h3>تراس خارجي — تصميم وتنفيذ</h3></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi">
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow c rv">آراء العملاء</span>
+      <h2 class="rv d1">ما يقوله <em>من جرّبنا</em></h2>
+    </div>
+    <div class="tg">
+      <div class="tcard rv d1">
+        <div class="q">“</div>
+        <p>التعامل راقٍ وأسعارهم حلوة وشغلهم مميّز.</p>
+        <div class="stars">★★★★★</div>
+        <div class="who">عميل · خرائط Google</div>
+      </div>
+      <div class="tcard rv d2">
+        <div class="q">“</div>
+        <p>تعاملٌ راقٍ وسعرٌ ممتاز.</p>
+        <div class="stars">★★★★★</div>
+        <div class="who">عميل · خرائط Google</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap ct-grid">
+    <div>
+      <span class="eyebrow rv">لنبدأ مشروعك</span>
+      <h2 class="rv d1">حدّثنا عن <em>مساحتك</em></h2>
+      <p class="lead rv d2">استشارةٌ أولى تُعرّفنا على فكرتك ومساحتك. تواصل معنا عبر الواتساب أو الهاتف، وابدأ خطوتك الأولى نحو مكانٍ يشبهك.</p>
+      <div class="ct-act rv d3">
+        <a href="https://wa.me/966558444044?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1%D8%A9%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%AF%D8%A7%D8%AE%D9%84%D9%8A" class="btn btn-d">تواصل عبر واتساب <span class="ic">↗</span></a>
+        <a href="tel:+966558444044" class="btn btn-o">اتصل بنا <span class="ic">↗</span></a>
+      </div>
+    </div>
+    <div class="info-card rv d2">
+      <div class="info-inner">
+        <a href="tel:+966558444044" class="irow">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
+          <span><small>الهاتف · واتساب</small><b class="num">055 844 4044</b></span>
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=%D9%81%D9%8A%D9%88%D8%B1%D9%86%20%D9%84%D9%84%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A7%D9%84%D8%AF%D8%A7%D8%AE%D9%84%D9%8A%20%D8%AA%D8%A8%D9%88%D9%83" target="_blank" rel="noopener" class="irow">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span><small>الموقع</small><b>حي الحديبة · تبوك</b></span>
+        </a>
+        <div class="irow">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <span><small>أوقات العمل</small><b>يوميًا حتى 11 مساءً</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a href="#top" class="brand">
+          <span class="bk"><span class="lat">F</span></span>
+          <span><b>فيورن</b><small>Fiorn Interior</small></span>
+        </a>
+        <p>مكتب تصميم داخلي في تبوك — نُصمّم وننفّذ المساحات السكنية والتجارية والخارجية بلمسةٍ راقية ودقّةٍ في التفاصيل.</p>
+      </div>
+      <div class="fcol">
+        <h4>روابط</h4>
+        <a href="#about">عن المكتب</a>
+        <a href="#services">خدماتنا</a>
+        <a href="#process">منهجيتنا</a>
+        <a href="#work">أعمالنا</a>
+      </div>
+      <div class="fcol">
+        <h4>تواصل</h4>
+        <a href="tel:+966558444044" class="num">055 844 4044</a>
+        <a href="https://wa.me/966558444044" target="_blank" rel="noopener">واتساب</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=%D9%81%D9%8A%D9%88%D8%B1%D9%86%20%D9%84%D9%84%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A7%D9%84%D8%AF%D8%A7%D8%AE%D9%84%D9%8A%20%D8%AA%D8%A8%D9%88%D9%83" target="_blank" rel="noopener">حي الحديبة، تبوك</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <small>© 2026 فيورن للتصميم الداخلي · تبوك</small>
+      <small class="lat">FIORN · Interior Design Studio</small>
+    </div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/966558444044?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1%D8%A9%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85" target="_blank" rel="noopener" aria-label="واتساب">
+  <svg viewBox="0 0 24 24"><path d="M.06 24l1.68-6.13A11.8 11.8 0 0 1 .16 11.9C.16 5.34 5.5 0 12.06 0a11.8 11.8 0 0 1 8.4 3.48 11.8 11.8 0 0 1 3.48 8.42c0 6.56-5.34 11.9-11.9 11.9a11.9 11.9 0 0 1-5.7-1.45L.06 24zM6.6 20.2c1.65.98 3.23 1.56 5.45 1.56 5.45 0 9.9-4.43 9.9-9.88 0-5.46-4.43-9.9-9.9-9.9-5.46 0-9.89 4.44-9.89 9.9 0 2.33.68 4.07 1.83 5.9l-.99 3.62 3.6-.95zM17.9 14.6c-.07-.12-.27-.2-.57-.35-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.42z"/></svg>
+</a>
+
+<div id="lb"><button class="lbx">✕</button><img src="" alt=""></div>
+
+<script>
+(function(){
+  // preloader
+  var pre=document.getElementById('pre');
+  function hide(){pre.classList.add('done')}
+  window.addEventListener('load',function(){setTimeout(hide,500)});
+  setTimeout(hide,2600);
+
+  // progress + nav shrink
+  var prog=document.querySelector('#prog i'),nav=document.getElementById('nav');
+  function onScroll(){
+    var h=document.documentElement,sc=h.scrollTop,mx=h.scrollHeight-h.clientHeight;
+    prog.style.width=(mx>0?(sc/mx*100):0)+'%';
+    nav.classList.toggle('shrink',sc>40);
+    var hi=document.getElementById('heroImg');
+    if(hi&&sc<window.innerHeight){hi.style.transform='translateY('+(sc*0.16)+'px)'}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // mobile menu
+  var burger=document.getElementById('burger'),mob=document.getElementById('mob');
+  function toggle(){burger.classList.toggle('x');mob.classList.toggle('open');document.body.style.overflow=mob.classList.contains('open')?'hidden':''}
+  burger.addEventListener('click',toggle);
+  mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(mob.classList.contains('open'))toggle()})});
+
+  // reveal
+  var rvs=document.querySelectorAll('.rv');
+  function safety(){var vh=window.innerHeight;rvs.forEach(function(el){var r=el.getBoundingClientRect();if(r.top<vh*0.94){el.classList.add('in')}})}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0,rootMargin:'0px 0px -7% 0px'});
+    rvs.forEach(function(el){io.observe(el)});
+  }
+  window.addEventListener('load',safety);window.addEventListener('scroll',safety,{passive:true});
+  setTimeout(safety,400);setTimeout(safety,1400);
+
+  // lightbox
+  var lb=document.getElementById('lb'),lbi=lb.querySelector('img');
+  document.querySelectorAll('.pf').forEach(function(p){p.addEventListener('click',function(){lbi.src=p.getAttribute('data-img');lb.classList.add('on');document.body.style.overflow='hidden'})});
+  function close(){lb.classList.remove('on');document.body.style.overflow=''}
+  lb.addEventListener('click',close);
+})();
+</script>
+</body>
+</html>
