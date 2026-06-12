@@ -36,7 +36,7 @@ h1,h2,h3{font-family:var(--fa-d);font-weight:600;line-height:1.2;letter-spacing:
 
 /* preloader */
 #pre{position:fixed;inset:0;z-index:10000;background:var(--char);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .9s var(--ease),visibility .9s}
-#pre.done{opacity:0;visibility:hidden}
+#pre.done{opacity:0;visibility:hidden;display:none;pointer-events:none}
 #pre .pl-mark{font-family:var(--fd);font-size:clamp(34px,7vw,58px);color:var(--bg);letter-spacing:.16em;font-weight:300;opacity:0;transform:translateY(12px);animation:plin 1s var(--ease) .15s forwards}
 #pre .pl-sub{font-family:var(--fu);font-size:11px;letter-spacing:.5em;color:var(--sand);text-transform:uppercase;opacity:0;animation:plin 1s var(--ease) .45s forwards}
 #pre .pl-bar{width:120px;height:1px;background:rgba(255,255,255,.18);overflow:hidden}
